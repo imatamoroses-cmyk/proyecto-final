@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "nombre": "Juan Perez",
+        "telefono": "0991234567"
+    },
+    {
+        "id": 2,
+        "nombre": "Carlos Mena",
+        "telefono": "0987654321"
+    },
+    {
+        "id": 3,
+        "nombre": "Luis Andrade",
+        "telefono": "0971122334"
+    },
+    {
+        "id": 4,
+        "nombre": "ashley",
+        "telefono": "0960035046"
+    }
+]

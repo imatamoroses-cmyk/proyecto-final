@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "cliente_id": 1,
+        "barbero_id": 1,
+        "servicio_id": 2,
+        "fecha": "10/12/2025"
+    },
+    {
+        "id": 2,
+        "cliente_id": 2,
+        "barbero_id": 2,
+        "servicio_id": 1,
+        "fecha": "11/12/2025"
+    }
+]

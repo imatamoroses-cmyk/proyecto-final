@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "nombre": "Pedro Cortez",
+        "especialidad": "Fade",
+        "activo": true
+    },
+    {
+        "id": 2,
+        "nombre": "Miguel Rojas",
+        "especialidad": "Barba",
+        "activo": true
+    },
+    {
+        "id": 3,
+        "nombre": "Andres Luna",
+        "especialidad": "Diseños",
+        "activo": true
+    }
+]

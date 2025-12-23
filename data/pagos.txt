@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "cita_id": 1,
+        "monto": 7.0,
+        "pagado": true
+    },
+    {
+        "id": 2,
+        "cita_id": 2,
+        "monto": 5.0,
+        "pagado": true
+    }
+]
