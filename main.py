@@ -29,20 +29,14 @@ from services.pagos import (
 )
 
 
-def menu():
+# -------- SUBMENÚS --------
+
+def menu_clientes():
     while True:
-        print("\n===== BARBERÍA - SISTEMA EN CONSOLA =====")
-        print("1. Registrar cliente")
+        print("\n--- Menú Cliente ---")
+        print("1. Insertar cliente")
         print("2. Listar clientes")
-        print("3. Registrar barbero")
-        print("4. Listar barberos")
-        print("5. Registrar servicio")
-        print("6. Listar servicios")
-        print("7. Registrar cita")
-        print("8. Listar citas")
-        print("9. Registrar pago")
-        print("10. Listar pagos")
-        print("0. Salir")
+        print("3. Salir")
 
         opcion = input("Seleccione una opción: ")
 
@@ -51,21 +45,111 @@ def menu():
         elif opcion == "2":
             listar_clientes()
         elif opcion == "3":
+            break
+        else:
+            print("Opción inválida")
+
+
+def menu_barberos():
+    while True:
+        print("\n--- Menú Barbero ---")
+        print("1. Insertar barbero")
+        print("2. Listar barberos")
+        print("3. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
             registrar_barbero()
-        elif opcion == "4":
+        elif opcion == "2":
             listar_barberos()
-        elif opcion == "5":
+        elif opcion == "3":
+            break
+        else:
+            print("Opción inválida")
+
+
+def menu_servicios():
+    while True:
+        print("\n--- Menú Servicio ---")
+        print("1. Insertar servicio")
+        print("2. Listar servicios")
+        print("3. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
             registrar_servicio()
-        elif opcion == "6":
+        elif opcion == "2":
             listar_servicios()
-        elif opcion == "7":
+        elif opcion == "3":
+            break
+        else:
+            print("Opción inválida")
+
+
+def menu_citas():
+    while True:
+        print("\n--- Menú Cita ---")
+        print("1. Insertar cita")
+        print("2. Listar citas")
+        print("3. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
             registrar_cita()
-        elif opcion == "8":
+        elif opcion == "2":
             listar_citas()
-        elif opcion == "9":
+        elif opcion == "3":
+            break
+        else:
+            print("Opción inválida")
+
+
+def menu_pagos():
+    while True:
+        print("\n--- Menú Pago ---")
+        print("1. Insertar pago")
+        print("2. Listar pagos")
+        print("3. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
             registrar_pago()
-        elif opcion == "10":
+        elif opcion == "2":
             listar_pagos()
+        elif opcion == "3":
+            break
+        else:
+            print("Opción inválida")
+
+
+# -------- MENÚ PRINCIPAL --------
+
+def menu():
+    while True:
+        print("\n===== BARBERÍA - SISTEMA EN CONSOLA =====")
+        print("1. Cliente")
+        print("2. Barbero")
+        print("3. Servicio")
+        print("4. Cita")
+        print("5. Pago")
+        print("0. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            menu_clientes()
+        elif opcion == "2":
+            menu_barberos()
+        elif opcion == "3":
+            menu_servicios()
+        elif opcion == "4":
+            menu_citas()
+        elif opcion == "5":
+            menu_pagos()
         elif opcion == "0":
             print("Saliendo del sistema...")
             break
@@ -74,18 +158,17 @@ def menu():
 
 
 def main():
-    # Inicializa datos de prueba SOLO si los archivos están vacíos
+    # Inicializa datos
     inicializar_clientes()
     inicializar_barberos()
     inicializar_servicios()
     inicializar_citas()
     inicializar_pagos()
 
-    # Muestra el menú
+    # Muestra el menú principal
     menu()
 
 
-# EJECUCIÓN DEL PROGRAMA
+# -------- EJECUCIÓN --------
 main()
-
 
