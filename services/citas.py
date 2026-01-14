@@ -1,4 +1,5 @@
 from utils.archivos import cargar_datos, guardar_datos, cargar_contador, guardar_contador
+from utils.validaciones import solo_numeros
 
 ARCHIVO = "citas.txt"
 ARCHIVO_CONTADOR = "contador_citas.txt"
@@ -10,8 +11,8 @@ def inicializar_citas():
         return
 
     citas = [
-        {"id": 1, "cliente_id": 1, "barbero_id": 1, "servicio_id": 2, "fecha": "10/12/2025"},
-        {"id": 2, "cliente_id": 2, "barbero_id": 2, "servicio_id": 1, "fecha": "11/12/2025"}
+        {"id": 1, "cliente": "Juan Perez", "barbero": "Miguel Torres", "fecha": "2025-01-10", "hora": "10:00"},
+        {"id": 2, "cliente": "Carlos Mena", "barbero": "Luis Mora", "fecha": "2025-01-11", "hora": "11:30"}
     ]
 
     guardar_datos(ARCHIVO, citas)
@@ -22,32 +23,28 @@ def registrar_cita():
     citas = cargar_datos(ARCHIVO)
     contador = cargar_contador(ARCHIVO_CONTADOR) + 1
 
-    cliente_id = input("ID del cliente: ").strip()
-    barbero_id = input("ID del barbero: ").strip()
-    servicio_id = input("ID del servicio: ").strip()
-    fecha = input("Fecha (DD/MM/YYYY): ").strip()
+    cliente = input("Nombre del cliente: ").strip()
+    barbero = input("Nombre del barbero: ").strip()
+    fecha = input("Fecha (YYYY-MM-DD): ").strip()
+    hora = input("Hora (HH:MM): ").strip()
 
-    if not cliente_id.isdigit() or not barbero_id.isdigit() or not servicio_id.isdigit():
-        print("Los IDs deben ser numéricos.")
-        return
-
-    if not fecha:
-        print("Fecha inválida.")
+    if not cliente or not barbero or not fecha or not hora:
+        print(" Error: todos los campos son obligatorios.")
         return
 
     cita = {
         "id": contador,
-        "cliente_id": int(cliente_id),
-        "barbero_id": int(barbero_id),
-        "servicio_id": int(servicio_id),
-        "fecha": fecha
+        "cliente": cliente,
+        "barbero": barbero,
+        "fecha": fecha,
+        "hora": hora
     }
 
     citas.append(cita)
     guardar_datos(ARCHIVO, citas)
     guardar_contador(ARCHIVO_CONTADOR, contador)
 
-    print("Cita registrada correctamente.")
+    print(" Cita registrada correctamente.")
 
 
 def listar_citas():
@@ -60,6 +57,6 @@ def listar_citas():
     print("\nCITAS REGISTRADAS")
     for c in citas:
         print(
-            f"ID: {c['id']} | Cliente: {c['cliente_id']} | "
-            f"Barbero: {c['barbero_id']} | Servicio: {c['servicio_id']} | Fecha: {c['fecha']}"
+            f"ID: {c['id']} | Cliente: {c['cliente']} | "
+            f"Barbero: {c['barbero']} | Fecha: {c['fecha']} | Hora: {c['hora']}"
         )
