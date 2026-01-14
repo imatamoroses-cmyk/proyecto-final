@@ -1,4 +1,5 @@
 from utils.archivos import cargar_datos, guardar_datos, cargar_contador, guardar_contador
+from utils.validaciones import solo_numeros
 
 ARCHIVO = "pagos.txt"
 ARCHIVO_CONTADOR = "contador_pagos.txt"
@@ -10,8 +11,8 @@ def inicializar_pagos():
         return
 
     pagos = [
-        {"id": 1, "cita_id": 1, "monto": 7.00, "pagado": True},
-        {"id": 2, "cita_id": 2, "monto": 5.00, "pagado": True}
+        {"id": 1, "metodo": "Efectivo", "monto": 10.00},
+        {"id": 2, "metodo": "Transferencia", "monto": 15.00}
     ]
 
     guardar_datos(ARCHIVO, pagos)
@@ -22,24 +23,24 @@ def registrar_pago():
     pagos = cargar_datos(ARCHIVO)
     contador = cargar_contador(ARCHIVO_CONTADOR) + 1
 
-    cita_id = input("ID de la cita: ").strip()
-    monto = input("Monto a pagar: ").strip()
-
-    if not cita_id.isdigit():
-        print("El ID de la cita debe ser numérico.")
+    # MÉTODO DE PAGO
+    metodo = input("Método de pago: ").strip()
+    if not metodo:
+        print(" Error: el método no puede estar vacío.")
         return
 
-    try:
-        monto = float(monto)
-    except ValueError:
-        print("El monto debe ser numérico.")
-        return
+    # VALIDAR MONTO
+    while True:
+        monto = input("Monto del pago: ").strip()
+        if solo_numeros(monto):
+            monto = float(monto)
+            break
+        print(" Error: el monto debe ser numérico.")
 
     pago = {
         "id": contador,
-        "cita_id": int(cita_id),
-        "monto": monto,
-        "pagado": True
+        "metodo": metodo,
+        "monto": monto
     }
 
     pagos.append(pago)
@@ -58,6 +59,4 @@ def listar_pagos():
 
     print("\nPAGOS REGISTRADOS")
     for p in pagos:
-        estado = "Pagado" if p["pagado"] else "Pendiente"
-        print(f"ID: {p['id']} | Cita: {p['cita_id']} | Monto: ${p['monto']} | {estado}")
-
+        print(f"ID: {p['id']} | Método: {p['metodo']} | Monto: ${p['monto']}")
