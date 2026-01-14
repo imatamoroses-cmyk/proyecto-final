@@ -6,8 +6,9 @@ from utils.archivos import (
 )
 
 from utils.validaciones import (
-    validar_nombre,
-    validar_telefono
+    validar_texto,
+    validar_telefono,
+    validar_cedula
 )
 
 ARCHIVO = "clientes.txt"
@@ -20,9 +21,18 @@ def inicializar_clientes():
         return
 
     clientes = [
-        {"id": 1, "nombre": "Juan Perez", "telefono": "0991234567"},
-        {"id": 2, "nombre": "Carlos Mena", "telefono": "0987654321"},
-        {"id": 3, "nombre": "Luis Andrade", "telefono": "0971122334"}
+        {
+            "id": 1,
+            "cedula": "0102030405",
+            "nombre": "Juan Perez",
+            "telefono": "0991234567"
+        },
+        {
+            "id": 2,
+            "cedula": "0607080910",
+            "nombre": "Carlos Mena",
+            "telefono": "0987654321"
+        }
     ]
 
     guardar_datos(ARCHIVO, clientes)
@@ -33,20 +43,21 @@ def registrar_cliente():
     clientes = cargar_datos(ARCHIVO)
     contador = cargar_contador(ARCHIVO_CONTADOR) + 1
 
-    # VALIDAR NOMBRE
-    while True:
-        nombre = input("Nombre del cliente: ").strip()
-        if validar_nombre(nombre):
-            break
+    print("\n=== REGISTRO DE CLIENTE ===")
 
-    # VALIDAR TELÉFONO
-    while True:
-        telefono = input("Teléfono del cliente: ").strip()
-        if validar_telefono(telefono):
-            break
+    cedula = validar_cedula("Cédula del cliente: ")
+    nombre = validar_texto("Nombre del cliente: ")
+    telefono = validar_telefono("Teléfono del cliente: ")
+
+    # Validar que la cédula no se repita
+    for c in clientes:
+        if c["cedula"] == cedula:
+            print(" Error: Ya existe un cliente con esa cédula.")
+            return
 
     cliente = {
         "id": contador,
+        "cedula": cedula,
         "nombre": nombre,
         "telefono": telefono
     }
@@ -55,16 +66,21 @@ def registrar_cliente():
     guardar_datos(ARCHIVO, clientes)
     guardar_contador(ARCHIVO_CONTADOR, contador)
 
-    print("Cliente registrado correctamente.")
+    print(" Cliente registrado correctamente.")
 
 
 def listar_clientes():
     clientes = cargar_datos(ARCHIVO)
 
     if not clientes:
-        print("No hay clientes registrados.")
+        print(" No hay clientes registrados.")
         return
 
-    print("\nCLIENTES REGISTRADOS")
+    print("\n=== CLIENTES REGISTRADOS ===")
     for c in clientes:
-        print(f"ID: {c['id']} | Nombre: {c['nombre']} | Teléfono: {c['telefono']}")
+        print(
+            f"ID: {c['id']} | "
+            f"Cédula: {c['cedula']} | "
+            f"Nombre: {c['nombre']} | "
+            f"Teléfono: {c['telefono']}"
+        )
