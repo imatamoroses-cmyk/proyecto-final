@@ -1,4 +1,14 @@
-from utils.archivos import cargar_datos, guardar_datos, cargar_contador, guardar_contador
+from utils.archivos import (
+    cargar_datos,
+    guardar_datos,
+    cargar_contador,
+    guardar_contador
+)
+
+from utils.validaciones import (
+    validar_nombre,
+    validar_telefono
+)
 
 ARCHIVO = "clientes.txt"
 ARCHIVO_CONTADOR = "contador_clientes.txt"
@@ -23,12 +33,17 @@ def registrar_cliente():
     clientes = cargar_datos(ARCHIVO)
     contador = cargar_contador(ARCHIVO_CONTADOR) + 1
 
-    nombre = input("Nombre del cliente: ").strip()
-    telefono = input("Teléfono del cliente: ").strip()
+    # VALIDAR NOMBRE
+    while True:
+        nombre = input("Nombre del cliente: ").strip()
+        if validar_nombre(nombre):
+            break
 
-    if not nombre or not telefono:
-        print("Datos inválidos.")
-        return
+    # VALIDAR TELÉFONO
+    while True:
+        telefono = input("Teléfono del cliente: ").strip()
+        if validar_telefono(telefono):
+            break
 
     cliente = {
         "id": contador,
