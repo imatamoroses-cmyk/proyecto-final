@@ -1,4 +1,5 @@
 from utils.archivos import cargar_datos, guardar_datos, cargar_contador, guardar_contador
+from utils.validaciones import validar_texto, validar_numero, validar_booleano
 
 ARCHIVO = "servicios.txt"
 ARCHIVO_CONTADOR = "contador_servicios.txt"
@@ -10,9 +11,9 @@ def inicializar_servicios():
         return
 
     servicios = [
-        {"id": 1, "nombre": "Corte clásico", "precio": 5.00},
-        {"id": 2, "nombre": "Fade", "precio": 7.00},
-        {"id": 3, "nombre": "Corte + Barba", "precio": 10.00}
+        {"id": 1, "nombre": "Corte Clásico", "precio": 5, "activo": True},
+        {"id": 2, "nombre": "Fade", "precio": 7, "activo": True},
+        {"id": 3, "nombre": "Barba", "precio": 4, "activo": True}
     ]
 
     guardar_datos(ARCHIVO, servicios)
@@ -23,23 +24,15 @@ def registrar_servicio():
     servicios = cargar_datos(ARCHIVO)
     contador = cargar_contador(ARCHIVO_CONTADOR) + 1
 
-    nombre = input("Nombre del servicio: ").strip()
-    precio = input("Precio del servicio: ").strip()
-
-    if not nombre or not precio:
-        print("Datos inválidos.")
-        return
-
-    try:
-        precio = float(precio)
-    except ValueError:
-        print("El precio debe ser numérico.")
-        return
+    nombre = validar_texto("Nombre del servicio: ")
+    precio = validar_numero("Precio del servicio: ")
+    activo = validar_booleano("¿Servicio activo?")
 
     servicio = {
         "id": contador,
         "nombre": nombre,
-        "precio": precio
+        "precio": precio,
+        "activo": activo
     }
 
     servicios.append(servicio)
@@ -58,4 +51,5 @@ def listar_servicios():
 
     print("\nSERVICIOS REGISTRADOS")
     for s in servicios:
-        print(f"ID: {s['id']} | {s['nombre']} | Precio: ${s['precio']}")
+        estado = "Activo" if s["activo"] else "Inactivo"
+        print(f"ID: {s['id']} | Servicio: {s['nombre']} | Precio: ${s['precio']} | Estado: {estado}")
