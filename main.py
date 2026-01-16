@@ -172,3 +172,6 @@ def main():
 # -------- EJECUCIÓN --------
 main()
 
+#python3 main.py
+
+
